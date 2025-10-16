@@ -1,36 +1,80 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# ── Dependencies ─────────────────────────────────────────
+node_modules/
+.pnpm-store/
+.bun/
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+# ── Next.js build output ────────────────────────────────
+.next/
+out/
+.next-static/            # in case of custom setups
+.vercel/                 # Vercel metadata
 
-# testing
-/coverage
+# ── Env files (keep secrets out of git) ─────────────────
+.env
+.env.local
+.env*.local
+.env.development
+.env.test
+.env.production
 
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
+# ── Logs & debug ────────────────────────────────────────
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+bun.lockb
+*.log
+*.pid
+*.seed
+*.pid.lock
 
-# local env files
-.env*.local
-.env
+# ── Caches ──────────────────────────────────────────────
+.cache/
+.tmp/
+temp/
+tmp/
+.cache-loader/
+.eslintcache
+.stylelintcache
+.turbo/
+.swp
+.sass-cache/
+.parcel-cache/
+.swc/
 
-# vercel
-.vercel
-
-# typescript
+# ── TypeScript / Build artifacts ────────────────────────
+dist/
+build/
 *.tsbuildinfo
-next-env.d.ts
+
+# ── Testing ─────────────────────────────────────────────
+coverage/
+.cypress/
+cypress/screenshots/
+cypress/videos/
+playwright-report/
+test-results/
+
+# ── IDE / OS junk ───────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# ── Misc tools ──────────────────────────────────────────
+*.local
+*.orig
+*.rej
+
+# ── Lockfiles (optional policy) ─────────────────────────
+# Uncomment exactly one if you enforce a single lockfile
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# ── Images/build outputs generated at runtime ───────────
+public/_next/           # should not exist, but just in case
