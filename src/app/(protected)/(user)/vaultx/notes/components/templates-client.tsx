@@ -94,42 +94,66 @@ export default function TemplatesClient() {
     useEffect(() => {
         async function loadColumns() {
             try {
-                setColumnsLoading(true)
-                const res = await axios.get(`${API_URL}/columns`, { withCredentials: true, })
-                const cols = Array.isArray(res.data?.columns) ? res.data.columns : []
-                cols.sort((a: any, b: any) => (a?.position ?? 0) - (b?.position ?? 0))
-                setColumns(cols as Column[])
+                setColumnsLoading(true);
+
+                const res = await axios.get(`${API_URL}/columns`, { withCredentials: true });
+
+                const cols = Array.isArray(res.data?.columns) ? res.data.columns : [];
+                cols.sort((a: any, b: any) => (a?.position ?? 0) - (b?.position ?? 0));
+                setColumns(cols as Column[]);
             } catch (err: any) {
-                console.error(err)
-                toast({ title: "Failed to load columns", description: err.message })
+                if (axios.isAxiosError(err) && err.response?.status === 401) {
+                    // 🚨 session expired → redirect
+                    window.location.href = "/login"; // or router.replace("/login")
+                    return;
+                }
+                console.error(err);
+                toast({
+                    title: "Failed to load columns",
+                    description: err.message,
+                });
             } finally {
-                setTimeout(() => setColumnsLoading(false), 500)
+                setTimeout(() => setColumnsLoading(false), 500);
             }
         }
-        loadColumns()
-    }, [])
+        loadColumns();
+    }, []);
+
 
     useEffect(() => {
         async function loadTemplates() {
-            setLoading(true)
+            setLoading(true);
             try {
-                const params: any = {}
-                if (debouncedQ) params.q = debouncedQ
-                if (filters.type !== "all") params.type = filters.type
-                if (filters.tag !== "all") params.tag = filters.tag
+                const params: any = {};
+                if (debouncedQ) params.q = debouncedQ;
+                if (filters.type !== "all") params.type = filters.type;
+                if (filters.tag !== "all") params.tag = filters.tag;
 
-                const res = await axios.get(`${API_URL}`, { params, withCredentials: true, })
-                const items = Array.isArray(res.data?.items) ? res.data.items : []
-                setTemplates(items as TemplateItem[])
+                const res = await axios.get(`${API_URL}`, {
+                    params,
+                    withCredentials: true,
+                });
+
+                const items = Array.isArray(res.data?.items) ? res.data.items : [];
+                setTemplates(items as TemplateItem[]);
             } catch (err: any) {
-                console.error(err)
-                toast({ title: "Failed to load notes", description: err.message })
+                if (axios.isAxiosError(err) && err.response?.status === 401) {
+                    // 🚨 unauthorized → redirect to login
+                    window.location.href = "/login"; // or router.replace("/login")
+                    return;
+                }
+                console.error(err);
+                toast({
+                    title: "Failed to load notes",
+                    description: err.message,
+                });
             } finally {
-                setLoading(false)
+                setLoading(false);
             }
         }
-        loadTemplates()
-    }, [debouncedQ, filters.type, filters.tag])
+        loadTemplates();
+    }, [debouncedQ, filters.type, filters.tag]);
+
 
     const availableTags = useMemo(() => {
         const q = debouncedQ.trim().toLowerCase()
@@ -158,16 +182,15 @@ export default function TemplatesClient() {
     }, [templates, debouncedQ, filters.type, filters.tag, columns])
 
     async function handleDragEnd(itemId: string, from: string, to: string) {
-        if (from === to) return
-        const original = templates
-        setTemplates((prev) => prev.map((t) => (t.id === itemId ? { ...t, column_id: to } : t)))
+        if (from === to) return;
+
+        const original = templates;
+        setTemplates(prev => prev.map(t => (t.id === itemId ? { ...t, column_id: to } : t)));
+
         try {
-            console.log(getCookie("csrf_token"));
             const res = await axios.post(
                 `${API_URL}/${itemId}/move`,
-                {
-                    to_column_id: to, // <-- body data
-                },
+                { to_column_id: to },
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -175,17 +198,28 @@ export default function TemplatesClient() {
                     },
                     withCredentials: true,
                 }
-            )
-            const updated = res.data.item as TemplateItem
-            setTemplates((prev) => prev.map((t) => (t.id === updated.id ? updated : t)))
+            );
+
+            const updated = res.data.item as TemplateItem;
+            setTemplates(prev => prev.map(t => (t.id === updated.id ? updated : t)));
         } catch (err: any) {
-            setTemplates(original)
-            toast({ title: "Move failed", description: err.message })
+            // rollback on error
+            setTemplates(original);
+
+            // redirect on unauthorized
+            if (axios.isAxiosError(err) && err.response?.status === 401) {
+                window.location.href = "/login"; // or router.replace("/login")
+                return;
+            }
+
+            toast({ title: "Move failed", description: err.message });
         }
     }
 
+
     async function handleSubmitFromDialog(payload: TemplateDialogPayload) {
         if ("id" in payload) {
+            // UPDATE
             try {
                 const res = await axios.post(
                     API_URL,
@@ -202,14 +236,19 @@ export default function TemplatesClient() {
                         },
                         withCredentials: true,
                     }
-                )
-                const updated = res.data.item as TemplateItem
-                setTemplates((prev) => prev.map((t) => (t.id === updated.id ? updated : t)))
-                toast({ title: "Note updated" })
+                );
+                const updated = res.data.item as TemplateItem;
+                setTemplates((prev) => prev.map((t) => (t.id === updated.id ? updated : t)));
+                toast({ title: "Note updated" });
             } catch (err: any) {
-                toast({ title: "Update failed", description: err.message })
+                if (axios.isAxiosError(err) && err.response?.status === 401) {
+                    window.location.href = "/login"; // or router.replace("/login")
+                    return;
+                }
+                toast({ title: "Update failed", description: err.message });
             }
         } else {
+            // CREATE
             try {
                 const res = await axios.post(
                     `${API_URL}`,
@@ -227,16 +266,21 @@ export default function TemplatesClient() {
                         },
                         withCredentials: true,
                     }
-                )
-                const created = res.data.item as TemplateItem
-                setTemplates((prev) => [created, ...prev])
-                const colName = columns.find((c) => c.id === payload.column_id)?.name ?? "Backlog"
-                toast({ title: "Note created", description: `Added to ${colName}` })
+                );
+                const created = res.data.item as TemplateItem;
+                setTemplates((prev) => [created, ...prev]);
+                const colName = columns.find((c) => c.id === payload.column_id)?.name ?? "Backlog";
+                toast({ title: "Note created", description: `Added to ${colName}` });
             } catch (err: any) {
-                toast({ title: "Create failed", description: err.message })
+                if (axios.isAxiosError(err) && err.response?.status === 401) {
+                    window.location.href = "/login"; // or router.replace("/login")
+                    return;
+                }
+                toast({ title: "Create failed", description: err.message });
             }
         }
     }
+
 
     async function handleDuplicate(id: string) {
         try {
@@ -250,14 +294,20 @@ export default function TemplatesClient() {
                     },
                     withCredentials: true,
                 }
-            )
-            const dupe = res.data.item as TemplateItem
-            setTemplates((prev) => [dupe, ...prev])
-            toast({ title: "Note duplicated" })
+            );
+
+            const dupe = res.data.item as TemplateItem;
+            setTemplates((prev) => [dupe, ...prev]);
+            toast({ title: "Note duplicated" });
         } catch (err: any) {
-            toast({ title: "Duplicate failed", description: err.message })
+            if (axios.isAxiosError(err) && err.response?.status === 401) {
+                window.location.href = "/login"; // or router.replace("/login") in Next.js
+                return;
+            }
+            toast({ title: "Duplicate failed", description: err.message });
         }
     }
+
 
     async function handleMove(id: string, from: string, to: string) {
         if (from === to) return
@@ -271,21 +321,30 @@ export default function TemplatesClient() {
                     "X-CSRF-Token": getCookie("csrf_token") ?? "",
                 },
                 withCredentials: true,
-            })
+            });
+
             if (res.status === 200 && res.data?.item?.id) {
-                setTemplates((prev) => prev.filter((t) => t.id !== res.data.item.id))
+                setTemplates((prev) => prev.filter((t) => t.id !== res.data.item.id));
             } else {
-                setTemplates((prev) => prev.filter((t) => t.id !== id))
+                setTemplates((prev) => prev.filter((t) => t.id !== id));
             }
-            toast({ title: "Note deleted" })
+
+            toast({ title: "Note deleted" });
         } catch (err: any) {
-            toast({ title: "Delete failed", description: err.message })
+            if (axios.isAxiosError(err) && err.response?.status === 401) {
+                // 🚨 unauthorized → redirect to login
+                window.location.href = "/login"; // or router.replace("/login")
+                return;
+            }
+            toast({ title: "Delete failed", description: err.message });
         }
     }
 
+
     async function handleApproveToggle(id: string) {
-        const tmpl = templates.find((t) => t.id === id)
-        if (!tmpl) return
+        const tmpl = templates.find((t) => t.id === id);
+        if (!tmpl) return;
+
         try {
             const res = await axios.patch(
                 `${API_URL}/${id}`,
@@ -297,13 +356,23 @@ export default function TemplatesClient() {
                     },
                     withCredentials: true,
                 }
-            )
-            const updated = res.data.item as TemplateItem
-            setTemplates((prev) => prev.map((t) => (t.id === updated.id ? updated : t)))
+            );
+
+            const updated = res.data.item as TemplateItem;
+            setTemplates((prev) =>
+                prev.map((t) => (t.id === updated.id ? updated : t))
+            );
         } catch (err: any) {
-            toast({ title: "Approve failed", description: err.message })
+            if (axios.isAxiosError(err) && err.response?.status === 401) {
+                // 🚨 unauthorized → redirect to login
+                window.location.href = "/login"; // or router.replace("/login") if using Next.js router
+                return;
+            }
+
+            toast({ title: "Approve failed", description: err.message });
         }
     }
+
 
     // 👇 LIFT the Dialog to wrap EVERYTHING, so ALL triggers are inside it.
     return (

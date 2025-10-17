@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
 import { buildColumns } from "./components/columns"; // ⟵ change import
@@ -33,6 +34,8 @@ export default function DoctorInboxPage() {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
 
+    const router = useRouter();
+
     const loadInbox = useCallback(async () => {
         setLoading(true);
         setError("");
@@ -46,16 +49,22 @@ export default function DoctorInboxPage() {
                 withCredentials: true,
                 headers: {
                     "Content-Type": "application/json",
-                    "X-CSRF-Token": getCookie("csrf_token") ?? "", // <= not null anymore
+                    "X-CSRF-Token": getCookie("csrf_token") ?? "",
                 },
             });
+
             setData(res.data?.rows ?? []);
-        } catch {
+        } catch (e) {
+            if (axios.isAxiosError(e) && e.response?.status === 401) {
+                // 🚨 Session expired / unauthorized → send to login
+                router.replace("/login");
+                return;
+            }
             setError("Failed to load inbox.");
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [router]);
 
     useEffect(() => {
         let mounted = true;

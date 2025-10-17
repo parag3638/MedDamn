@@ -269,23 +269,26 @@ export default function CaseDetailDialog(props: CaseDetailDialogProps) {
   const handleRegenerate = async () => {
     try {
       setRegenerating(true);
-      const res = await fetch(
-        `${API}/doctor/intake/${id}/summary/regenerate`,
-        {
-          method: "POST",
-          credentials: "include",
-          // headers: { "Content-Type": "application/json" },
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-Token": getCookie("csrf_token") ?? "", // <= not null anymore
-          },
-          // new API expects { model, temperature, include_ocr }
-          body: JSON.stringify({ include_ocr: true }),
-        }
-      );
+      const res = await fetch(`${API}/doctor/intake/${id}/summary/regenerate`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": getCookie("csrf_token") ?? "",
+        },
+        body: JSON.stringify({ include_ocr: true }),
+      });
+
+      // ⬇️ check unauthorized first
+      if (res.status === 401) {
+        window.location.href = "/login"; // or router.replace("/login") in Next.js
+        return;
+      }
+
       if (!res.ok) {
         throw new Error("Failed to regenerate summary");
       }
+
       await mutate(); // refetch updated details
     } catch (e: any) {
       toast({
@@ -310,18 +313,25 @@ export default function CaseDetailDialog(props: CaseDetailDialogProps) {
     };
     mutate(optimistic, { revalidate: false, populateCache: true });
     onStatusChange?.(next);
+
     try {
-      const res = await fetch(
-        `${API}/doctor/intake/${id}/${endpoint}`,
-        {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-Token": getCookie("csrf_token") ?? "", // <= not null anymore
-          },
-        }
-      );
+      const res = await fetch(`${API}/doctor/intake/${id}/${endpoint}`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": getCookie("csrf_token") ?? "",
+        },
+      });
+
+      // ⬇️ Handle unauthorized: rollback + redirect
+      if (res.status === 401) {
+        mutate(prev, { revalidate: false, populateCache: true });
+        onStatusChange?.(prev.session.status);
+        window.location.href = "/login"; // or router.replace("/login")
+        return;
+      }
+
       if (!res.ok) throw new Error(`Failed to ${endpoint} case`);
       await mutate();
     } catch (e: any) {
@@ -334,6 +344,7 @@ export default function CaseDetailDialog(props: CaseDetailDialogProps) {
       });
     }
   };
+
 
   const handleReviewed = async () => {
     if (status !== "pending") return;
@@ -353,17 +364,22 @@ export default function CaseDetailDialog(props: CaseDetailDialogProps) {
   // Fetch a signed URL for a document and open it
   const handleDocClick = async (docId: string) => {
     try {
-      const res = await fetch(
-        `${API}/doctor/intake/${id}/documents/${docId}/url`,
-        {
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-Token": getCookie("csrf_token") ?? "", // <= not null anymore
-          },
-        }
-      );
+      const res = await fetch(`${API}/doctor/intake/${id}/documents/${docId}/url`, {
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": getCookie("csrf_token") ?? "",
+        },
+      });
+
+      // ⬇️ Handle unauthorized first
+      if (res.status === 401) {
+        window.location.href = "/login"; // or router.replace("/login") in Next.js
+        return;
+      }
+
       if (!res.ok) throw new Error("Failed to fetch document URL");
+
       const { url } = await res.json();
       if (url) {
         window.open(url, "_blank");
@@ -378,6 +394,7 @@ export default function CaseDetailDialog(props: CaseDetailDialogProps) {
       });
     }
   };
+
 
   const SOAP = session?.summary?.soap;
   const DDx = session?.summary?.ddx || [];

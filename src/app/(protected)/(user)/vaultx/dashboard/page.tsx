@@ -22,7 +22,6 @@ export default function DashboardPage() {
         const start = Date.now();
 
         axios
-            // .get("http://localhost:9000/doctor/dashboard", {
             .get("https://authbackend-cc2d.onrender.com/doctor/dashboard", {
                 headers: { "Content-Type": "application/json" },
                 withCredentials: true,
@@ -38,12 +37,19 @@ export default function DashboardPage() {
             .catch((err) => {
                 const elapsed = Date.now() - start;
                 const remaining = Math.max(0, 2000 - elapsed);
+
                 setTimeout(() => {
+                    if (err?.response?.status === 401) {
+                        // redirect to login if unauthorized
+                        window.location.href = "/login";
+                        return;
+                    }
                     setError(err.message);
                     setLoader(false);
                 }, remaining);
             });
     }, []);
+
 
     if (error) {
         return (

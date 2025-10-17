@@ -89,6 +89,12 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
         credentials: "include",
       });
 
+      // ⬇️ handle unauthorized first
+      if (resp.status === 401) {
+        window.location.href = "/login";
+        return; // stop
+      }
+
       if (!resp.ok || !resp.headers.get("content-type")?.includes("text/csv")) {
         throw new Error(`CSV API failed: ${resp.status}`);
       }

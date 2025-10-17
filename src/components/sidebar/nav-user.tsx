@@ -60,16 +60,27 @@ export function NavUser() {
 
   async function handleLogout() {
     try {
-      const res = await axios.post("https://authbackend-cc2d.onrender.com/api/auth/logout", {}, { withCredentials: true });
+      const res = await axios.post(
+        "https://authbackend-cc2d.onrender.com/api/auth/logout",
+        {},
+        { withCredentials: true }
+      );
+
       if (res.status === 204) {
+        // successful logout
         router.replace("/");
       } else {
         console.error("Logout failed");
       }
     } catch (e) {
+      if ((e as any)?.response?.status === 401) {
+        router.replace("/login");
+        return;
+      }
       console.error("Logout error", e);
     }
   }
+
 
   // Generate a random color for avatar background (pick from a set for consistency)
   const colors = [
