@@ -795,7 +795,7 @@ export function LoginForm() {
               </button>
 
               <Button
-                className="hover:bg-[#2F2F31] bg-black py-6 dark:text-[#FFFFFF] rounded-xl text-base font-semibold"
+                className="hover:bg-[#2F2F31] bg-black py-4 dark:text-[#FFFFFF] rounded-xl text-sm font-semibold"
                 disabled={loading}
                 type="submit"
               >
