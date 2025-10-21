@@ -14,7 +14,7 @@ type Mode = "public" | "soft" | "block";
 export default function AuthGate({
   children,
   mode = "block",          // ← blocks first paint by default
-  redirectTo = "/",        // where unauth users go (soft/block)
+  redirectTo = "/vaultx/login",        // where unauth users go (soft/block)
   authedTo = "/vaultx/dashboard", // where authed users go (public)
   requireRole,             // e.g. "admin"
   fallback = null,         // loader/skeleton while checking
@@ -70,8 +70,4 @@ export default function AuthGate({
   if (mode === "block" && !allowed) return <>{fallback}</>;
   return <UserProvider value={user}>{children}</UserProvider>;
 }
-
-
-
-
 

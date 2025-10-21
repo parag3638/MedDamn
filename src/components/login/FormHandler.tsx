@@ -40,7 +40,9 @@ export default function FormHandler() {
         }
         setGLoading(true);
         // Full page redirect → /api/auth/google/start
-        window.location.assign(`${AUTH_BASE}/google/start`);
+        window.location.replace(`${AUTH_BASE}/google/start`);
+        // window.location.replace('/api/auth/google/start'); // or '/auth/google/start' if that's your rewrite
+        
     };
 
     return (
