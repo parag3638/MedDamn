@@ -1,7 +1,8 @@
 "use client"
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
+import { useBreakpointValue } from "@/components/hooks/useBreakpointValue"
 
 // incoming data type
 type DiagnosisMix = {
@@ -14,16 +15,16 @@ interface DiagnosisMixCardProps {
     title?: string
     description?: string
     className?: string
-    topN?: number // default 6
+    topN?: number // default responsive
     showHiddenNote?: boolean // default true
 }
 
 const SHADE_CLASSES = [
-    "bg-[hsl(var(--chart-1))]", // Light Rose
-    "bg-[hsl(var(--chart-2))]", // Medium Light Rose
-    "bg-[hsl(var(--chart-3))]", // Medium Rose
-    "bg-[hsl(var(--chart-4))]", // Darker Rose
-    "bg-[hsl(var(--chart-5))]", // Dark Rose
+    "bg-[hsl(var(--chart-1))]",
+    "bg-[hsl(var(--chart-2))]",
+    "bg-[hsl(var(--chart-3))]",
+    "bg-[hsl(var(--chart-4))]",
+    "bg-[hsl(var(--chart-5))]",
 ]
 
 export function DiagnosisMixCard({
@@ -31,11 +32,25 @@ export function DiagnosisMixCard({
     title = "Diagnosis Mix",
     description = "Top categories by case count",
     className,
-    topN = 6,
+    topN, // if passed, overrides responsive
     showHiddenNote = true,
 }: DiagnosisMixCardProps) {
     const row = data?.[0]
     if (!row) return null
+
+    const responsiveTopN =
+        useBreakpointValue<number>({
+            base: 4,  // < 640
+            sm: 4,    // optional
+            md: 5,    // ≥ 768
+            lg: 4,    // ≥ 1024
+            xl: 6,    // ≥ 1280  <-- smaller than md, that's OK
+            "2xl": 4, // ≥ 1536
+            "3xl": 5, // ≥ 1600
+        }) ?? 3
+
+    // IMPORTANT: use the responsive value unless you *intentionally* override via prop
+    const effectiveTopN = topN ?? responsiveTopN
 
     // 1) extract categories (exclude "label")
     const allEntries = Object.entries(row)
@@ -45,8 +60,8 @@ export function DiagnosisMixCard({
     // 2) sort desc by count
     const sorted = allEntries.sort((a, b) => b[1] - a[1])
 
-    // 3) keep only topN
-    const top = sorted.slice(0, Math.max(0, topN))
+    // 3) keep only effectiveTopN  ✅ FIXED
+    const top = sorted.slice(0, Math.max(0, effectiveTopN))
     const hidden = sorted.slice(top.length)
 
     // totals for note
@@ -141,11 +156,9 @@ export function DiagnosisMixCard({
 
             {showHiddenNote && hiddenCats > 0 && (
                 <CardDescription className="text-xs text-muted-foreground px-6 pb-4 pt-0">
-                    + {hiddenCats} other {hiddenCats === 1 ? "category" : "categories"} ({hiddenCount} cases)
-                    not shown
+                    + {hiddenCats} other {hiddenCats === 1 ? "category" : "categories"} ({hiddenCount} cases) not shown
                 </CardDescription>
             )}
-
         </Card>
     )
 }

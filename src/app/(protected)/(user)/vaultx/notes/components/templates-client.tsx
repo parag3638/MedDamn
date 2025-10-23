@@ -34,16 +34,15 @@ export function getCookie(name: string): string | null {
         return null;
     }
 
-    console.log("All cookies:", document.cookie); // 👀 see raw cookies
+    
 
     const target = name + "=";
     const parts = document.cookie.split("; ");
-    console.log("Split parts:", parts);
+    
 
     for (const part of parts) {
         if (part.startsWith(target)) {
             const value = decodeURIComponent(part.split("=").slice(1).join("="));
-            console.log(`Cookie found: ${name}=${value}`);
             return value;
         }
     }
@@ -55,7 +54,6 @@ export function getCookie(name: string): string | null {
 
 
 export default function TemplatesClient() {
-    console.log("CSRF cookie value:", getCookie("csrf_token"));
 
 
     const { toast } = useToast()

@@ -154,7 +154,7 @@ export default function DashboardPage() {
                             <Card className="col-span-1 md:col-span-1 2xl:col-span-4 min-h-[380px] md:min-h-[380px]">
                                 <DiagnosisMixCard
                                     data={data?.charts?.stackedChart || []}
-                                    topN={4}
+                                    // topN={5}
                                 />
                             </Card>
 
