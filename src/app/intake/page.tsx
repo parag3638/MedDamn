@@ -460,7 +460,7 @@ export default function PatientIntakePage() {
                       {showSkeletons && (
                         <div className="flex flex-col ml-2">
                           <div className="flex space-x-2 items-center">
-                            <div className="font-semibold text-sm">Paratus</div>
+                            <div className="font-semibold text-sm">Damn</div>
                             <div className="text-sm text-gray-500 italic">Agent is Thinking...</div>
                           </div>
                           <div className="w-96 mt-1 flex flex-col gap-2">
@@ -601,7 +601,7 @@ export default function PatientIntakePage() {
                             <div key={idx} className="flex items-center justify-between bg-muted rounded-lg p-2 text-sm">
                               <div className="flex items-center gap-2 flex-1 min-w-0">
                                 <FileText className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                                <span className="truncate text-foreground">{file.name}</span>
+                                <span className="break-all text-foreground flex-1">{file.name}</span>
                               </div>
                               <Button
                                 variant="ghost"

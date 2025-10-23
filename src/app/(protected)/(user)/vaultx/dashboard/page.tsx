@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator"
-import { AlertCircleIcon, Timer, CircleAlert, HeartPulse } from "lucide-react";
+import { AlertCircleIcon, Timer, CircleAlert, HeartPulse, Bell } from "lucide-react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { ChartBarBuckets } from "./components/BarChart";
@@ -71,10 +71,10 @@ export default function DashboardPage() {
                         xl:grid-cols-12">
                     {/* KPIs (full on sm, 2-up on md, 4-up on xl/2xl) */}
                     {[
-                        { title: "Total Cases", icon: AlertCircleIcon, key: "totalCases" },
-                        { title: "Avg Resolution Time", icon: Timer, key: "avgResolutionTime" },
-                        { title: "Pending Cases", icon: CircleAlert, key: "pendingCases" },
-                        { title: "Avg Age", icon: HeartPulse, key: "avgAge" },
+                        { title: "Total Cases", icon: Bell, key: "totalCases", footer: "all-time total" },
+                        { title: "Avg Resolution Time", icon: Timer, key: "avgResolutionTime", footer: "lifetime average (in days)" },
+                        { title: "Pending Cases", icon: CircleAlert, key: "pendingCases", footer: "ongoing from all time" },
+                        { title: "Avg Age", icon: HeartPulse, key: "avgAge", footer: "all-time average age" },
                     ].map((item) => (
                         <Card
                             key={item.key}
@@ -100,7 +100,7 @@ export default function DashboardPage() {
                                         <div className="text-2xl font-bold">
                                             {data?.kpis?.[item.key] ?? "--"}
                                         </div>
-                                        <p className="text-xs text-muted-foreground">of all time</p>
+                                        <p className="text-xs text-muted-foreground">{item.footer}</p>
                                     </>
                                 )}
                             </CardContent>
@@ -141,7 +141,7 @@ export default function DashboardPage() {
                         </>
                     ) : (
                         <>
-                            <Card className="col-span-1 md:col-span-1 2xl:col-span-4 min-h-[380px] md:min-h-[420px]">
+                            <Card className="col-span-1 md:col-span-1 2xl:col-span-4 min-h-[380px] md:min-h-[380px]">
                                 <ChartLineLinear
                                     data={data?.charts?.lineChart}
                                     title="Cases Over Time"
@@ -151,14 +151,14 @@ export default function DashboardPage() {
                                 />
                             </Card>
 
-                            <Card className="col-span-1 md:col-span-1 2xl:col-span-4 min-h-[380px] md:min-h-[420px]">
+                            <Card className="col-span-1 md:col-span-1 2xl:col-span-4 min-h-[380px] md:min-h-[380px]">
                                 <DiagnosisMixCard
                                     data={data?.charts?.stackedChart || []}
-                                    topN={5}
+                                    topN={4}
                                 />
                             </Card>
 
-                            <Card className="col-span-1 md:col-span-1 2xl:col-span-4 min-h-[380px] md:min-h-[420px]">
+                            <Card className="col-span-1 md:col-span-1 2xl:col-span-4 min-h-[380px] md:min-h-[380px]">
                                 <ChartBarBuckets
                                     data={data?.charts?.barChart}
                                     title="Age Buckets"
