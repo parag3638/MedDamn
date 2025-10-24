@@ -100,23 +100,28 @@ export default function DesktopHero() {
 
 
 
-                        {/* Trust Indicators */}
-                        <div className="pt-4 flex flex-col sm:flex-row items-start sm:items-center text-white/80 w-11/12">
-                            <p className="text-xs sm:text-sm uppercase tracking-wider font-medium">
-                                Trusted by Healthcare Professionals
-                            </p>
-                            <div className="hidden sm:flex items-center gap-6 text-xs sm:text-sm font-medium">
-                                <span className="whitespace-nowrap">HIPAA Compliant</span>
-                                <span className="h-4 w-px bg-white/40"></span>
-                                <span className="whitespace-nowrap">End-to-End Encrypted</span>
-                                <span className="h-4 w-px bg-white/40"></span>
-                                <span className="whitespace-nowrap">SOC 2 Certified</span>
-                            </div>
-                        </div>
+
 
                     </div>
                 </main>
 
+
+                {/* Trust Indicators */}
+                <div className="m-auto">
+                    <div className="py-4 flex flex-col sm:flex-row items-start sm:items-center text-white">
+                        <p className="text-xs sm:text-sm uppercase tracking-wider font-medium pr-4">
+                            Trusted by Healthcare Professionals
+                        </p>
+                        <div className="hidden sm:flex items-center gap-4 text-xs sm:text-sm font-medium">
+                            <span className="whitespace-nowrap">HIPAA Compliant</span>
+                            <span className="h-4 w-px bg-white/40"></span>
+                            <span className="whitespace-nowrap">End-to-End Encrypted</span>
+                            <span className="h-4 w-px bg-white/40"></span>
+                            <span className="whitespace-nowrap">SOC 2 Certified</span>
+                        </div>
+                    </div>
+                </div>
+                
                 {/* Footer */}
                 <footer className="border-t border-border/40 py-6 z-10">
                     <div className="container mx-auto px-6 text-center text-sm text-white">
