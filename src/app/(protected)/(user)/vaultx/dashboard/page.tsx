@@ -79,17 +79,17 @@ export default function DashboardPage() {
                         <Card
                             key={item.key}
                             className="
-                col-span-1
-                md:col-span-1
-                xl:col-span-3
-                min-h-[140px]
-              "
+                                col-span-1
+                                md:col-span-1
+                                xl:col-span-3
+                                min-h-[140px]
+                            "
                         >
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                 <CardTitle className="text-sm font-medium">{item.title}</CardTitle>
                                 <item.icon className="h-4 w-4 text-muted-foreground" />
                             </CardHeader>
-                            <CardContent>
+                            <CardContent className="px-6 py-2">
                                 {loader ? (
                                     <div className="flex flex-col space-y-2">
                                         <Skeleton className="h-6 w-[100px]" />
@@ -100,7 +100,7 @@ export default function DashboardPage() {
                                         <div className="text-2xl font-bold">
                                             {data?.kpis?.[item.key] ?? "--"}
                                         </div>
-                                        <p className="text-xs text-muted-foreground">{item.footer}</p>
+                                        <p className="text-xs text-muted-foreground pt-[1px]">{item.footer}</p>
                                     </>
                                 )}
                             </CardContent>
@@ -116,28 +116,36 @@ export default function DashboardPage() {
                     {/* Charts — stack on small, 2-up on md, 3-up on xl/2xl */}
                     {loader ? (
                         <>
-                            {Array.from({ length: 3 }).map((_, i) => (
-                                <Card
-                                    key={i}
-                                    className="
-                                    col-span-1
-                                    md:col-span-1
-                                    2xl:col-span-4
-                                    min-h-[380px] md:min-h-[420px]
-                                "
-                                >
-                                    <CardHeader>
-                                        <CardTitle><Skeleton className="h-5 w-[200px]" /></CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <Skeleton className="h-56 md:h-72 w-full" />
-                                    </CardContent>
-                                    <CardFooter className="flex-col space-y-2">
-                                        <Skeleton className="h-4 w-[240px]" />
-                                        <Skeleton className="h-4 w-[180px]" />
-                                    </CardFooter>
-                                </Card>
-                            ))}
+                            <>
+                                {Array.from({ length: 4 }).map((_, i) => (
+                                    <Card
+                                        key={i}
+                                        className={`
+                                            col-span-1
+                                            md:col-span-1
+                                            2xl:col-span-4
+                                            min-h-[380px] md:min-h-[380px]
+                                            ${i === 3 ? '2xl:hidden' : ''}
+                                        `}
+                                    >
+                                        <CardHeader>
+                                            <CardTitle>
+                                                <Skeleton className="h-5 w-[200px]" />
+                                            </CardTitle>
+                                        </CardHeader>
+
+                                        <CardContent>
+                                            <Skeleton className="h-56 md:h-72 w-full" />
+                                        </CardContent>
+
+                                        <CardFooter className="flex-col space-y-2">
+                                            <Skeleton className="h-4 w-[240px]" />
+                                            <Skeleton className="h-4 w-[180px]" />
+                                        </CardFooter>
+                                    </Card>
+                                ))}
+                            </>
+
                         </>
                     ) : (
                         <>
@@ -154,7 +162,7 @@ export default function DashboardPage() {
                             <Card className="col-span-1 md:col-span-1 2xl:col-span-4 min-h-[380px] md:min-h-[380px]">
                                 <DiagnosisMixCard
                                     data={data?.charts?.stackedChart || []}
-                                    // topN={5}
+                                // topN={5}
                                 />
                             </Card>
 
@@ -168,6 +176,14 @@ export default function DashboardPage() {
                                     className="h-full"
                                 />
                             </Card>
+
+                            <Card className="col-span-1 md:col-span-1 2xl:hidden min-h-[380px] md:min-h-[380px]">
+                                <StatusPie
+                                    data={data?.charts?.pieChart || []}
+                                    title="Cases by Status"
+                                    description="Latest intake sessions"
+                                />
+                            </Card>
                         </>
                     )}
                 </div>
@@ -178,8 +194,10 @@ export default function DashboardPage() {
                         lg:grid-cols-6
                         xl:grid-cols-12">
                     {/* Table: full width → 4/6 → 8/12 */}
-                    <div className="col-span-1 lg:col-span-4 xl:col-span-8">
+                    <div className="col-span-1 lg:col-span-6 xl:col-span-12 2xl:col-span-8">
+
                         {loader ? (
+
                             <Card className="min-h-[420px]">
                                 <CardHeader>
                                     <CardTitle><Skeleton className="h-5 w-40" /></CardTitle>
@@ -191,14 +209,14 @@ export default function DashboardPage() {
                                 </CardContent>
                             </Card>
                         ) : (
+
                             <Card className="min-h-[420px]">
                                 <ActiveCasesCard data={data?.table || []} />
                             </Card>
                         )}
                     </div>
 
-                    {/* Pie: full width → 2/6 → 4/12 */}
-                    <div className="col-span-1 lg:col-span-2 xl:col-span-4">
+                    <div className="hidden 2xl:block 2xl:col-span-4">
                         {loader ? (
                             <Card className="min-h-[420px]">
                                 <CardHeader>
