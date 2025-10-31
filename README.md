@@ -1,7 +1,5 @@
-# Secure File Sharing Frontend (Next.js)
+# AI Powered Healthcare
 
-## Overview
-This is the frontend service for the **Secure File Sharing Application**, built with **Next.js**. It features **Multi-Factor Authentication (MFA)** for users and **Passkey Authentication** for admins. Only admins can create new users, and session-based authentication is implemented for security.
 
 ## Tech Stack
 - **Next.js 14 + React**
