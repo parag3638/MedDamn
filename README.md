@@ -1,4 +1,4 @@
-# AI Powered Healthcare
+# MedDamn AI Powered Healthcare
 
 
 ## Tech Stack
