@@ -35,14 +35,13 @@ export default function Login() {
             </svg>
             Damn Inc
           </div>
+
           <div className="relative z-10 mt-auto pr-8">
             <blockquote className="space-y-2">
               <p className="text-base">
-                &ldquo;Believing in yourself is the first step to success.
-                Stay focused, work hard, and never give up, as perseverance always leads to
-                remarkable achievements &rdquo;
+                &ldquo;The ending isn&rsquo;t any more important than any of the moments leading to it. &rdquo;
               </p>
-              <footer className="text-sm">-Cool Guy</footer>
+              <footer className="text-sm">-Butcher</footer>
             </blockquote>
           </div>
         </div>
