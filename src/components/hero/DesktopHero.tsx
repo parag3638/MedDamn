@@ -42,9 +42,13 @@ export default function DesktopHero() {
             </div>
 
             {/* readability overlay */}
-            {heroLoaded && (
+            {/* {heroLoaded && (
                 <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/60 via-black/20 to-transparent pointer-events-none" />
-            )}
+            )} */}
+
+              {!heroLoaded && (
+                <div className="absolute inset-0 -z-20 bg-black"></div>
+              )}
 
             {!heroLoaded && (
                 <div className="absolute inset-0 flex items-center justify-center z-0 text-white">
