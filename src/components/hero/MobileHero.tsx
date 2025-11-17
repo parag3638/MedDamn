@@ -131,7 +131,7 @@ export default function MobileHero() {
       <div className="absolute inset-0 -z-20 bg-[#030711]">
         <Image
           src="/hero.png"
-          alt="Doctors collaborating with the AlphaPulse assistant"
+          alt="Doctors collaborating with the MedDamn assistant"
           fill
           priority
           sizes="100vw"
@@ -165,7 +165,7 @@ export default function MobileHero() {
           <div className="container mx-auto px-6 py-4 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Stethoscope className="h-6 w-6 text-accent" aria-hidden="true" />
-              <span className="text-xl font-semibold tracking-tight text-white">AlphaPulse</span>
+              <span className="text-xl font-semibold tracking-tight text-white">MedDamn</span>
             </div>
 
 
@@ -232,7 +232,7 @@ export default function MobileHero() {
         {/* Footer */}
         <footer className="border-t border-border/40 py-6 z-10">
           <div className="container mx-auto px-6 text-center text-sm text-white">
-            © 2025 AlphaPulse. All rights reserved.
+            © 2025 MedDamn. All rights reserved.
           </div>
         </footer>
       </div>
