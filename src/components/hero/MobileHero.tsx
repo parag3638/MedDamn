@@ -171,11 +171,18 @@ export default function MobileHero() {
 
             <Button
               variant="default"
+              onClick={() => router.push("/vaultx/dashboard")}
+              className="py-5 text-white font-semibold hover:text-gray-300"
+            >
+              Go to Dashboard
+            </Button>
+            {/* <Button
+              variant="default"
               onClick={() => router.push("/login")}
               className="text-white font-semibold hover:text-gray-300"
             >
               Doctor Login
-            </Button>
+            </Button> */}
           </div>
         </header>
 

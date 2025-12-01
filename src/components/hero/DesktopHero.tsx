@@ -46,9 +46,9 @@ export default function DesktopHero() {
                 <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/60 via-black/20 to-transparent pointer-events-none" />
             )} */}
 
-              {!heroLoaded && (
+            {!heroLoaded && (
                 <div className="absolute inset-0 -z-20 bg-black"></div>
-              )}
+            )}
 
             {!heroLoaded && (
                 <div className="absolute inset-0 flex items-center justify-center z-0 text-white">
@@ -74,13 +74,21 @@ export default function DesktopHero() {
                             <span className="text-xl font-semibold tracking-tight text-white">MedDamn</span>
                         </div>
 
-
+                        {/* 
                         <Button
                             variant="default"
                             onClick={() => router.push("/login")}
                             className="text-white font-semibold hover:text-gray-300"
                         >
                             Doctor Login
+                        </Button> */}
+
+                        <Button
+                            variant="default"
+                            onClick={() => router.push("/vaultx/dashboard")}
+                            className="py-5 text-white font-semibold hover:text-gray-300"
+                        >
+                            Go to Dashboard
                         </Button>
                     </div>
                 </header>

@@ -55,6 +55,9 @@ export function NavUser() {
 
   const { isMobile } = useSidebar()
   const user: any = useUser() || null;
+  const displayName = (user?.name || "").trim() || "Adam Smith";
+  const displayEmail = user?.email || "Adam.Smith@Company.com";
+  const displayAvatar = user?.avatar || undefined;
 
   const router = useRouter();
 
@@ -93,7 +96,7 @@ export function NavUser() {
     for (let i = 0; i < name.length; i++) hash += name.charCodeAt(i);
     return colors[hash % colors.length];
   }
-  const avatarColor = getColor(user?.name);
+  const avatarColor = getColor(displayName);
   // Get initials from name (e.g., 'AB' for 'Alla Ben')
   function getInitials(name: string = "") {
     const words = name.trim().split(" ").filter(Boolean);
@@ -101,7 +104,7 @@ export function NavUser() {
     if (words.length === 1) return words[0][0].toUpperCase();
     return (words[0][0] + words[words.length - 1][0]).toUpperCase();
   }
-  const avatarInitials = getInitials(user?.name);
+  const avatarInitials = getInitials(displayName);
 
   return (
     <SidebarMenu>
@@ -113,12 +116,12 @@ export function NavUser() {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage alt={user.name} />
+                <AvatarImage alt={displayName} />
                 <AvatarFallback className={`rounded-lg font-semibold ${avatarColor} text-white`}>{avatarInitials}</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user.name}</span>
-                <span className="truncate text-xs">{user.email}</span>
+                <span className="truncate font-medium">{displayName}</span>
+                <span className="truncate text-xs">{displayEmail}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -132,12 +135,12 @@ export function NavUser() {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
+                  <AvatarImage src={displayAvatar} alt={displayName} />
                   <AvatarFallback className={`rounded-lg font-semibold ${avatarColor} text-white`}>{avatarInitials}</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user.name}</span>
-                  <span className="truncate text-xs">{user.email}</span>
+                  <span className="truncate font-medium">{displayName}</span>
+                  <span className="truncate text-xs">{displayEmail}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
