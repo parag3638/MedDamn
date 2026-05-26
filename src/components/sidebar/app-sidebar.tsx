@@ -29,7 +29,7 @@ import { usePathname } from "next/navigation"
 // Sample data
 const data = {
   user: { name: "shadcn", email: "m@example.com", avatar: "/avatars/shadcn.jpg" },
-  teams: [{ name: "Damn Inc", logo: GalleryVerticalEnd, plan: "Enterprise" }],
+  teams: [{ name: "MedDamn", logo: GalleryVerticalEnd, plan: "Enterprise" }],
   navMain: [
     {
       title: "Dashboard",

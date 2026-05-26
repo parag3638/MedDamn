@@ -460,7 +460,7 @@ export default function PatientIntakePage() {
                       {showSkeletons && (
                         <div className="flex flex-col ml-2">
                           <div className="flex space-x-2 items-center">
-                            <div className="font-semibold text-sm">Damn</div>
+                            <div className="font-semibold text-sm">MedDamn</div>
                             <div className="text-sm text-gray-500 italic">Agent is Thinking...</div>
                           </div>
                           <div className="w-96 mt-1 flex flex-col gap-2">
@@ -494,7 +494,7 @@ export default function PatientIntakePage() {
 
                 {/* AI disclaimer */}
                 <p className="text-xs text-muted-foreground mt-3 text-center">
-                  Copyright © 2025 Damn Health. All rights reserved.
+                  Copyright © 2025 MedDamn Health. All rights reserved.
                 </p>
               </CardContent>
             </Card>
