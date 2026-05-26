@@ -5,9 +5,9 @@ import "../styles/globals.css";
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata = {
-  title: "Damn Inc",
+  title: "MedDamn",
   description: "What you are seeking is seeking you.",
-  icons: { icon: "/icon.ico", }
+  icons: { icon: "/favicon.svg", }
 };
 
 // Load GeistVF (Variable Font)
