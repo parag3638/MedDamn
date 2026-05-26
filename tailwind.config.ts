@@ -9,7 +9,39 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+  		fontFamily: {
+  			sans: ['var(--font-sans)', 'DM Sans', 'sans-serif'],
+  			serif: ['var(--font-serif)', 'Playfair Display', 'serif'],
+  		},
   		colors: {
+  			sage: {
+  				'50': '#f0f5f2',
+  				'100': '#dce8e0',
+  				'200': '#c9d9cc',
+  				'300': '#a8c4b4',
+  				'400': '#8baa9b',
+  				'500': '#6b9e8a',
+  				'600': '#5a8a76',
+  				'700': '#3d5e52',
+  				'800': '#2d4a3e',
+  				'900': '#1c2f28',
+  			},
+  			footer: {
+  				DEFAULT: '#1c2f38',
+  				light: '#243d48',
+  			},
+  			neutral: {
+  				'50': '#fafafa',
+  				'100': '#f5f5f5',
+  				'200': '#e5e5e5',
+  				'300': '#d4d4d4',
+  				'400': '#a3a3a3',
+  				'500': '#737373',
+  				'600': '#525252',
+  				'700': '#404040',
+  				'800': '#262626',
+  				'900': '#171717',
+  			},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

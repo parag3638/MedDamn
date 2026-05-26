@@ -1,20 +1,26 @@
-// app/page.tsx (wrapper that swaps at md)
-"use client"
-import DesktopHero from "@/components/hero/DesktopHero" // your first version
-import MobileHero from "@/components/hero/MobileHero"   // your second version
+"use client";
+
+import { ModeProvider } from "@/contexts/ModeContext";
+import Navbar from "@/components/landing/Navbar";
+import Hero from "@/components/landing/Hero";
+import BalanceToggle from "@/components/landing/BalanceToggle";
+import Philosophy from "@/components/landing/Philosophy";
+import HowItWorks from "@/components/landing/HowItWorks";
+import Stats from "@/components/landing/Stats";
+import Footer from "@/components/landing/Footer";
 
 export default function HomePage() {
   return (
-    <>
-      {/* Mobile / small screens */}
-      <div className="lg:hidden">
-        <MobileHero />
-      </div>
-
-      {/* Desktop / md and up */}
-      <div className="hidden lg:block">
-        <DesktopHero />
-      </div>
-    </>
-  )
+    <ModeProvider>
+      <Navbar />
+      <main className="flex-1">
+        <Hero />
+        <BalanceToggle />
+        <Philosophy />
+        <HowItWorks />
+        <Stats />
+      </main>
+      <Footer />
+    </ModeProvider>
+  );
 }

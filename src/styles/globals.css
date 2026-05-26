@@ -136,3 +136,53 @@ pre {
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
+
+/* ─── Landing Page Utilities ─── */
+
+html {
+  scroll-behavior: smooth;
+}
+
+.mode-transition {
+  transition: background-color 0.6s ease, color 0.6s ease, border-color 0.6s ease;
+}
+
+.bg-immersive {
+  background: linear-gradient(
+    160deg,
+    #7a9e8e 0%,
+    #8baa9b 20%,
+    #9dbba8 40%,
+    #a8c4b4 60%,
+    #b8cfbf 80%,
+    #c9d9cc 100%
+  );
+}
+
+.bg-ocean {
+  background: linear-gradient(
+    180deg,
+    #1c2f38 0%,
+    #1a3040 30%,
+    #1d3545 60%,
+    #1c2f38 100%
+  );
+}
+
+.bg-footer {
+  background-color: #1c2f38;
+}
+
+/* Custom scrollbar (landing) */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 170, 155, 0.4);
+  border-radius: 3px;
+}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Playfair_Display, DM_Sans } from "next/font/google";
 import "../styles/globals.css";
 import { Toaster } from "@/components/ui/toaster"
 
@@ -35,13 +36,26 @@ const geistMonoVF = localFont({
   display: "swap",
 });
 
+// Landing page fonts
+const playfair = Playfair_Display({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const dmSans = DM_Sans({
+  variable: "--font-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistVF.variable} ${geistMonoVF.variable}`}>
+    <html lang="en" className={`${geistVF.variable} ${geistMonoVF.variable} ${playfair.variable} ${dmSans.variable}`}>
       <body className="antialiased">
         <main> {children}</main>
         <Toaster />
