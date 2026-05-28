@@ -65,14 +65,14 @@ export default function BalanceToggle() {
             <button
               onClick={toggleMode}
               className={cn(
-                "relative w-14 h-7 rounded-full transition-colors duration-[360ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-500/50",
+                "relative w-14 h-7 rounded-full transition-colors duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-500/50",
                 isLight ? "bg-sage-500" : "bg-white/25"
               )}
               aria-label="Toggle AI mode"
             >
               <motion.span
                 animate={{ x: isLight ? 5 : -25 }}
-                transition={{ type: "spring", stiffness: 280, damping: 25 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 className="absolute top-1 w-5 h-5 rounded-full bg-white shadow-sm"
               />
             </button>
