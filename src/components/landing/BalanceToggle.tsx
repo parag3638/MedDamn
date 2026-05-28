@@ -21,14 +21,14 @@ export default function BalanceToggle() {
     offset: ["start start", "end end"],
   });
 
-  // Give each mode 80vh of pinned scroll time.
+  // Give each mode 68.4vh of pinned scroll time.
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     if (v > 0.5 && mode === "immersive") setMode("light");
     if (v < 0.5 && mode === "light") setMode("immersive");
   });
 
   return (
-    <div ref={containerRef} className="relative h-[260vh]">
+    <div ref={containerRef} className="relative h-[236.8vh]">
       <section
         aria-label="AI mode toggle"
         className={cn(
