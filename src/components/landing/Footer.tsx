@@ -1,6 +1,9 @@
 "use client";
 
 import { useRef, useEffect } from "react";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { LumenMark } from "@/components/brand/LumenMark";
 
 function scrollTo(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -8,7 +11,8 @@ function scrollTo(id: string) {
 
 const sitemapLeft = [
   { label: "Main Page", action: () => window.scrollTo({ top: 0, behavior: "smooth" }) },
-  { label: "About", action: () => scrollTo("about") },
+  { label: "Philosophy", action: () => scrollTo("about") },
+  { label: "Capabilities", action: () => scrollTo("capabilities") },
   { label: "How It Works", action: () => scrollTo("how-it-works") },
   { label: "Impact", action: () => scrollTo("impact") },
 ];
@@ -43,7 +47,7 @@ export default function Footer() {
         vx: (Math.random() - 0.5) * 0.25,
         vy: -Math.random() * 0.4 - 0.05,
         size: Math.random() * 2.2 + 0.6,
-        opacity: Math.random() * 0.55 + 0.15,
+        opacity: Math.random() * 0.5 + 0.15,
       });
     }
 
@@ -87,7 +91,8 @@ export default function Footer() {
         if (p.x > w) p.x = 0;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(218, 165, 32, ${p.opacity})`;
+        // sage motes drifting upward
+        ctx.fillStyle = `rgba(127, 214, 179, ${p.opacity})`;
         ctx.fill();
       });
     };
@@ -96,12 +101,12 @@ export default function Footer() {
       const w = canvas.offsetWidth;
       const h = canvas.offsetHeight;
       ctx.clearRect(0, 0, w, h);
-      drawWave(h * 0.55, 18, 0.007, 0.7,  "#152535", 0.35);
-      drawWave(h * 0.60, 14, 0.009, 0.9,  "#1a2f40", 0.45);
-      drawWave(h * 0.65, 12, 0.011, 1.1,  "#1c3545", 0.55);
-      drawWave(h * 0.70, 10, 0.013, 1.3,  "#1f3a4c", 0.65);
-      drawWave(h * 0.76,  8, 0.016, 1.6,  "#234550", 0.72);
-      drawWave(h * 0.82,  6, 0.020, 2.0,  "#285058", 0.60);
+      drawWave(h * 0.55, 18, 0.007, 0.7, "#152b27", 0.35);
+      drawWave(h * 0.60, 14, 0.009, 0.9, "#193a32", 0.45);
+      drawWave(h * 0.65, 12, 0.011, 1.1, "#1c3f38", 0.55);
+      drawWave(h * 0.70, 10, 0.013, 1.3, "#21493f", 0.65);
+      drawWave(h * 0.76, 8, 0.016, 1.6, "#2a5a4c", 0.7);
+      drawWave(h * 0.82, 6, 0.020, 2.0, "#356b59", 0.55);
       drawParticles();
       time += 0.018;
       animationId = requestAnimationFrame(animate);
@@ -117,58 +122,63 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="relative bg-footer text-white overflow-hidden min-h-screen flex flex-col">
+    <footer className="relative flex min-h-screen flex-col overflow-hidden bg-footer text-white">
       {/* Animated canvas background */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full pointer-events-none"
+        className="pointer-events-none absolute inset-0 h-full w-full"
         aria-hidden="true"
       />
 
-      <div className="relative z-10 flex flex-col flex-1 px-8 md:px-16 pt-20 pb-10">
-        <div className="max-w-7xl mx-auto w-full flex flex-col flex-1">
-
-          {/* Main content — grows to fill space */}
-          <div className="flex-1 flex flex-col md:flex-row gap-16 md:gap-24 justify-between">
-
-            {/* Brand closing — left */}
-            <div className="md:w-1/2 flex flex-col justify-center">
-              <div className="flex items-center gap-2 text-white/50 mb-10">
-                <span className="w-2 h-2 rounded-full bg-current" aria-hidden="true" />
-                <span className="text-xs tracking-[0.2em] font-medium">MEDDAMN</span>
+      <div className="relative z-10 flex flex-1 flex-col px-6 pb-10 pt-28 sm:px-10 md:px-16">
+        <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col">
+          {/* Main content */}
+          <div className="flex flex-1 flex-col justify-between gap-16 md:flex-row md:gap-24">
+            {/* Brand closing */}
+            <div className="flex flex-col justify-center md:w-1/2">
+              <div className="mb-10 flex items-center gap-2.5 text-white/60">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-sage-glow">
+                  <LumenMark className="h-4 w-4" />
+                </span>
+                <span className="text-xs font-medium uppercase tracking-[0.24em]">Lumen</span>
               </div>
 
-              <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl font-normal leading-[1.08] mb-6">
+              <h2 className="font-display text-5xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-6xl lg:text-7xl">
                 Healthcare,
                 <br />
-                reimagined.
+                <span className="text-sage-glow">reimagined.</span>
               </h2>
 
-              <p className="text-sm text-white/50 max-w-xs leading-relaxed mb-10">
+              <p className="mb-10 mt-6 max-w-xs text-sm leading-relaxed text-white/55">
                 AI-powered. Clinically precise. Always on.
                 <br />
                 Built for the providers who never stop.
               </p>
 
-              <div className="flex items-center gap-2 text-white/30">
-                <span className="w-8 h-px bg-current" />
-                <span className="text-xs tracking-[0.2em]">EST. 2024</span>
-              </div>
+              <Link
+                href="/intake"
+                className="group inline-flex w-fit items-center gap-2 rounded-full bg-white py-2 pl-5 pr-2 text-[0.8rem] font-semibold text-ink transition-all hover:bg-white/90"
+              >
+                Start Patient Check-In
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-sage-500 text-white transition-transform duration-300 group-hover:rotate-45">
+                  <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={2.6} />
+                </span>
+              </Link>
             </div>
 
-            {/* Sitemap — right */}
-            <div className="md:w-1/2 flex flex-col justify-center md:items-end">
+            {/* Sitemap */}
+            <div className="flex flex-col justify-center md:w-1/2 md:items-end">
               <div>
-                <span className="text-xs tracking-[0.28em] text-white/40 font-medium mb-7 block">
-                  SITEMAP
+                <span className="mb-7 block text-xs font-medium uppercase tracking-[0.28em] text-white/40">
+                  Sitemap
                 </span>
-                <div className="flex gap-20">
+                <div className="flex gap-16 sm:gap-20">
                   <ul className="flex flex-col gap-4">
                     {sitemapLeft.map((link) => (
                       <li key={link.label}>
                         <button
                           onClick={link.action}
-                          className="text-sm font-medium text-white/80 hover:text-white transition-colors"
+                          className="text-sm font-medium text-white/80 transition-colors hover:text-sage-glow"
                         >
                           {link.label}
                         </button>
@@ -180,7 +190,7 @@ export default function Footer() {
                       <li key={link.label}>
                         <button
                           onClick={link.action}
-                          className="text-sm font-medium text-white/80 hover:text-white transition-colors"
+                          className="text-sm font-medium text-white/80 transition-colors hover:text-sage-glow"
                         >
                           {link.label}
                         </button>
@@ -193,15 +203,18 @@ export default function Footer() {
           </div>
 
           {/* Bottom bar */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-5 pt-12 border-t border-white/10 mt-12">
-            <p className="text-xs text-white/30 tracking-[0.15em]">
-              MEDDAMN · AI-POWERED HEALTHCARE
+          <div className="mt-12 flex flex-col items-center justify-between gap-5 border-t border-white/10 pt-10 md:flex-row">
+            <p className="text-xs uppercase tracking-[0.2em] text-white/35">
+              Lumen · AI-Powered Healthcare
             </p>
+            <div className="flex items-center gap-2 text-white/30">
+              <span className="h-px w-8 bg-current" />
+              <span className="text-xs tracking-[0.2em]">EST. 2024</span>
+            </div>
             <p className="text-xs text-white/35">
-              © 2026 MedDamn. All rights reserved.
+              © 2026 Lumen. All rights reserved.
             </p>
           </div>
-
         </div>
       </div>
     </footer>
