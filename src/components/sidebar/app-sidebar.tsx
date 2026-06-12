@@ -5,13 +5,13 @@ import type { ComponentPropsWithoutRef } from "react"
 import {
   BookOpen,
   Bot,
-  GalleryVerticalEnd,
   LayoutDashboard,
   Settings2,
   SquareTerminal,
   Inbox,
   Notebook
 } from "lucide-react"
+import { LumenMark } from "@/components/brand/LumenMark"
 
 import { NavMain } from "@/components/sidebar/nav-main"
 import { NavProjects } from "@/components/sidebar/nav-projects"
@@ -29,7 +29,7 @@ import { usePathname } from "next/navigation"
 // Sample data
 const data = {
   user: { name: "shadcn", email: "m@example.com", avatar: "/avatars/shadcn.jpg" },
-  teams: [{ name: "MedDamn", logo: GalleryVerticalEnd, plan: "Enterprise" }],
+  teams: [{ name: "Lumen", logo: LumenMark, plan: "Enterprise" }],
   navMain: [
     {
       title: "Dashboard",

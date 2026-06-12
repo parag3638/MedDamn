@@ -1,7 +1,7 @@
-# MedDamn AI Powered Healthcare
+# Lumen AI Powered Healthcare
 
 
-MedDamn is an intelligent, end-to-end healthcare platform that streamlines clinical workflows and enhances diagnostic accuracy using AI. It empowers doctors with automated patient intake summaries, SOAP notes, differential diagnoses, and ICD-10 mappings, while providing patients a seamless digital experience from consultation to closure.
+Lumen is an intelligent, end-to-end healthcare platform that streamlines clinical workflows and enhances diagnostic accuracy using AI. It empowers doctors with automated patient intake summaries, SOAP notes, differential diagnoses, and ICD-10 mappings, while providing patients a seamless digital experience from consultation to closure.
 
 🚀 Core Features
 

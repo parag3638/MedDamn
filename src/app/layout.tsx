@@ -5,7 +5,7 @@ import "../styles/globals.css";
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata = {
-  title: "MedDamn",
+  title: "Lumen",
   description: "What you are seeking is seeking you.",
   icons: { icon: "/favicon.svg", }
 };
