@@ -12,6 +12,7 @@ const config: Config = {
   		fontFamily: {
   			sans: ['var(--font-sans)', 'DM Sans', 'sans-serif'],
   			serif: ['var(--font-serif)', 'Playfair Display', 'serif'],
+  			display: ['var(--font-display)', 'Sora', 'DM Sans', 'sans-serif'],
   		},
   		colors: {
   			sage: {
@@ -25,6 +26,20 @@ const config: Config = {
   				'700': '#3d5e52',
   				'800': '#2d4a3e',
   				'900': '#1c2f28',
+  				// Punchier mint-sage for accents / two-tone headlines on dark
+  				accent: '#5fb89a',
+  				glow: '#7fd6b3',
+  			},
+  			ink: {
+  				DEFAULT: '#0e1c18',
+  				800: '#13241f',
+  				700: '#1c2f38',
+  				600: '#243d48',
+  			},
+  			clinical: {
+  				DEFAULT: '#f6f8f7',
+  				100: '#eef3f0',
+  				200: '#e3ebe6',
   			},
   			footer: {
   				DEFAULT: '#1c2f38',

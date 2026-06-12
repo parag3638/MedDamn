@@ -173,6 +173,94 @@ html {
   background-color: #1c2f38;
 }
 
+/* ─── Redesigned landing atmosphere ─── */
+
+/* Cinematic dark hero canvas: deep charcoal-teal with a soft sage glow */
+.bg-hero-dark {
+  background:
+    radial-gradient(120% 90% at 78% 8%, rgba(95, 184, 154, 0.20) 0%, rgba(95, 184, 154, 0) 45%),
+    radial-gradient(100% 80% at 12% 100%, rgba(45, 74, 62, 0.55) 0%, rgba(14, 28, 24, 0) 60%),
+    linear-gradient(165deg, #0c1813 0%, #0e1c18 30%, #12241f 60%, #14292a 100%);
+}
+
+/* Airy clinical canvas for the body sections */
+.bg-clinical {
+  background:
+    radial-gradient(60% 50% at 50% -10%, rgba(107, 158, 138, 0.08) 0%, rgba(107, 158, 138, 0) 70%),
+    #f6f8f7;
+}
+
+/* Sage-tinted band (impact / CTA transitions) */
+.bg-sage-band {
+  background:
+    radial-gradient(80% 120% at 85% 0%, rgba(127, 214, 179, 0.18) 0%, rgba(127, 214, 179, 0) 55%),
+    linear-gradient(160deg, #2d4a3e 0%, #243d48 55%, #1c2f38 100%);
+}
+
+/* Frosted glass — pill navbar & floating chips */
+.glass-pill {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.glass-pill-light {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid rgba(28, 47, 56, 0.08);
+}
+
+/* Glass stat card on the dark hero */
+.glass-card {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Soft elevated card on the light canvas */
+.card-clinical {
+  background: #ffffff;
+  border: 1px solid rgba(28, 47, 56, 0.07);
+  box-shadow: 0 1px 2px rgba(28, 47, 56, 0.04),
+    0 24px 60px -36px rgba(28, 47, 56, 0.22);
+}
+
+/* Fine grain overlay for depth — drop into any relative container */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Two-tone headline accent */
+.text-sage-accent {
+  color: #5fb89a;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float-slow {
+  animation: float-slow 7s ease-in-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.92); opacity: 0.7; }
+  70% { transform: scale(1.25); opacity: 0; }
+  100% { transform: scale(1.25); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-slow { animation: none; }
+}
+
 /* Custom scrollbar (landing) */
 ::-webkit-scrollbar {
   width: 6px;

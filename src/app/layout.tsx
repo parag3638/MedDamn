@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Playfair_Display, DM_Sans } from "next/font/google";
+import { Playfair_Display, DM_Sans, Sora } from "next/font/google";
 import "../styles/globals.css";
 import { Toaster } from "@/components/ui/toaster"
 
@@ -49,13 +49,21 @@ const dmSans = DM_Sans({
   display: "swap",
 });
 
+// Display / headline grotesque for the landing
+const sora = Sora({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistVF.variable} ${geistMonoVF.variable} ${playfair.variable} ${dmSans.variable}`}>
+    <html lang="en" className={`${geistVF.variable} ${geistMonoVF.variable} ${playfair.variable} ${dmSans.variable} ${sora.variable}`}>
       <body className="antialiased">
         <main> {children}</main>
         <Toaster />
