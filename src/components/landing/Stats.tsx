@@ -2,25 +2,18 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { useMode } from "@/contexts/ModeContext";
-import { cn } from "@/lib/utils";
+import { PillBadge } from "./ui";
+
+const ease = [0.22, 1, 0.36, 1] as const;
 
 const stats = [
-  { value: 10000, suffix: "+", label: "Patients\nserved" },
-  { value: 500, suffix: "+", label: "Healthcare\nproviders" },
-  { value: 99, suffix: "%", label: "Uptime &\nreliability" },
-  { value: 98, suffix: "%", label: "Provider\nsatisfaction" },
+  { value: 10000, suffix: "+", label: "Patients served" },
+  { value: 500, suffix: "+", label: "Healthcare providers" },
+  { value: 99, suffix: "%", label: "Uptime & reliability" },
+  { value: 98, suffix: "%", label: "Provider satisfaction" },
 ];
 
-function AnimatedCounter({
-  value,
-  suffix,
-  isLight,
-}: {
-  value: number;
-  suffix: string;
-  isLight: boolean;
-}) {
+function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
   const [count, setCount] = useState(0);
@@ -28,7 +21,7 @@ function AnimatedCounter({
   useEffect(() => {
     if (!isInView) return;
     const duration = 1400;
-    const startValue = Math.round(value * 0.75);
+    const startValue = Math.round(value * 0.7);
     const range = value - startValue;
     const start = performance.now();
     let raf: number;
@@ -37,7 +30,6 @@ function AnimatedCounter({
 
     const tick = (now: number) => {
       const t = Math.min((now - start) / duration, 1);
-      // Quartic ease-out: fast start, heavy deceleration near end
       const eased = 1 - Math.pow(1 - t, 4);
       setCount(Math.round(startValue + eased * range));
       if (t < 1) raf = requestAnimationFrame(tick);
@@ -50,81 +42,54 @@ function AnimatedCounter({
   return (
     <span
       ref={ref}
-      className={cn(
-        "font-serif text-5xl md:text-6xl mode-transition",
-        isLight ? "text-neutral-900" : "text-white"
-      )}
+      className="font-display text-5xl font-semibold tracking-tight text-white sm:text-6xl"
     >
-      {count}
-      {suffix}
+      {count.toLocaleString()}
+      <span className="text-sage-glow">{suffix}</span>
     </span>
   );
 }
 
 export default function Stats() {
-  const { mode } = useMode();
-  const isLight = mode === "light";
-
   return (
     <section
       id="impact"
       aria-label="Impact statistics"
-      className={cn(
-        "py-24 px-8 md:px-12 mode-transition",
-        isLight ? "bg-neutral-50" : "bg-immersive"
-      )}
+      className="grain relative overflow-hidden bg-sage-band px-6 py-28 sm:px-8 md:py-32"
     >
-      <div className="max-w-7xl mx-auto">
+      {/* glow */}
+      <div className="pointer-events-none absolute left-1/4 top-0 h-80 w-80 -translate-x-1/2 rounded-full bg-sage-glow/20 blur-[120px]" />
+
+      <div className="relative mx-auto max-w-6xl">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          viewport={{ once: true, margin: "-80px" }}
-          className="text-center mb-16"
+          transition={{ duration: 0.7, ease }}
+          viewport={{ once: true, margin: "-100px" }}
+          className="flex flex-col items-center gap-6 text-center"
         >
-          <h2
-            className={cn(
-              "font-serif text-3xl md:text-4xl font-normal mb-4 mode-transition",
-              isLight ? "text-neutral-900" : "text-white"
-            )}
-          >
-            Trusted by healthcare professionals
-            across the country.
+          <PillBadge tone="sage">Impact</PillBadge>
+          <h2 className="font-display text-3xl font-semibold leading-[1.1] tracking-[-0.03em] text-white sm:text-5xl">
+            Real outcomes, <span className="text-sage-glow">measured.</span>
           </h2>
-          <p
-            className={cn(
-              "text-sm max-w-2xl mx-auto mode-transition",
-              isLight ? "text-neutral-500" : "text-white/70"
-            )}
-          >
-            Every number reflects real outcomes — faster workflows, better care,
-            and practices that run smarter with MedDamn.
+          <p className="max-w-2xl text-base leading-relaxed text-white/65">
+            Every number reflects faster workflows, better care and practices that
+            run smarter with Lumen.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-          {stats.map((stat) => (
+        <div className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-4">
+          {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              viewport={{ once: true, margin: "-80px" }}
-              className="flex flex-col items-center text-center gap-2"
+              transition={{ duration: 0.6, ease, delay: i * 0.1 }}
+              viewport={{ once: true, margin: "-60px" }}
+              className="glass-card flex flex-col items-center gap-2 rounded-3xl px-5 py-9 text-center"
             >
-              <AnimatedCounter
-                value={stat.value}
-                suffix={stat.suffix}
-                isLight={isLight}
-              />
-              <p
-                className={cn(
-                  "text-sm whitespace-pre-line mode-transition",
-                  isLight ? "text-neutral-500" : "text-white/60"
-                )}
-              >
-                {stat.label}
-              </p>
+              <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+              <p className="text-sm text-white/60">{stat.label}</p>
             </motion.div>
           ))}
         </div>
