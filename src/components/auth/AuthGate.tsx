@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { UserProvider, User } from "./UserContext";
 import { useRouter } from "next/navigation";
 
-const AUTH_BASE = process.env.NEXT_PUBLIC_AUTH_BASE_URL || "https://authbackend-cc2d.onrender.com/api/auth";
+const AUTH_BASE = process.env.NEXT_PUBLIC_AUTH_BASE_URL || "https://site--authbackend--jhkkz9lzfqht.code.run/api/auth";
 // const AUTH_BASE = "http://localhost:9000";
 
 const API_ROOT = AUTH_BASE.replace(/\/api\/auth\/?$/, "");

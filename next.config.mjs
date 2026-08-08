@@ -11,7 +11,7 @@ export default nextConfig;
 //         return [
 //             {
 //                 source: '/api/auth/:path*',
-//                 // destination: 'https://authbackend-cc2d.onrender.com/api/auth/:path*',
+//                 // destination: 'https://site--authbackend--jhkkz9lzfqht.code.run/api/auth/:path*',
 //                 destination: 'http://localhost:9000/api/auth/:path*',
 //             },
 //         ]

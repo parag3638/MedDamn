@@ -22,7 +22,7 @@ export default function DashboardPage() {
         const start = Date.now();
 
         axios
-            .get("https://authbackend-cc2d.onrender.com/doctor/dashboard", {
+            .get("https://site--authbackend--jhkkz9lzfqht.code.run/doctor/dashboard", {
                 headers: { "Content-Type": "application/json" },
                 withCredentials: true,
             })

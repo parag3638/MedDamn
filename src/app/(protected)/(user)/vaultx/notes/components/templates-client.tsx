@@ -72,7 +72,7 @@ export default function TemplatesClient() {
     const searchRef = useRef<HTMLInputElement>(null)
 
     // const API_URL = "http://localhost:9000/templates"
-    const API_URL = "https://authbackend-cc2d.onrender.com/templates"
+    const API_URL = "https://site--authbackend--jhkkz9lzfqht.code.run/templates"
 
     const DEFAULT_COLUMNS = [
         { id: "backlog", name: "Backlog" },

@@ -81,7 +81,7 @@ type BackendResponse = { session: BackendSession };
 
 const API = (
   // process.env.NEXT_PUBLIC_API_BASE || "http://localhost:9000"
-  process.env.NEXT_PUBLIC_API_BASE || "https://authbackend-cc2d.onrender.com"
+  process.env.NEXT_PUBLIC_API_BASE || "https://site--authbackend--jhkkz9lzfqht.code.run"
 ).replace(/\/$/, "");
 
 const fetcher = async (url: string): Promise<BackendResponse> => {
