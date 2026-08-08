@@ -41,7 +41,7 @@ axios.defaults.withCredentials = true;
 // ──────────────────────────────────────────────────────────────────────────────
 // API base (strip trailing slashes to avoid // in requests)
 // ──────────────────────────────────────────────────────────────────────────────
-const RAW_API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "https://authbackend-cc2d.onrender.com/api/auth";
+const RAW_API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "https://site--authbackend--jhkkz9lzfqht.code.run/api/auth";
 // const RAW_API_BASE = "http://localhost:9000/api/auth";
 const API_BASE = RAW_API_BASE.replace(/\/+$/, "");
 

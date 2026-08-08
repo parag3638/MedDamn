@@ -20,7 +20,7 @@ import localFont from "next/font/local";
 const Nunito = localFont({ src: "../../assets/fonts/NunitoSans-VariableFont.ttf" });
 
 // const AUTH_BASE = (process.env.NEXT_PUBLIC_AUTH_BASE_URL ?? "http://localhost:9000/api/auth").replace(/\/+$/, ""); // trim trailing slash
-const AUTH_BASE = (process.env.NEXT_PUBLIC_AUTH_BASE_URL ?? "https://authbackend-cc2d.onrender.com/api/auth").replace(/\/+$/, ""); // trim trailing slash
+const AUTH_BASE = (process.env.NEXT_PUBLIC_AUTH_BASE_URL ?? "https://site--authbackend--jhkkz9lzfqht.code.run/api/auth").replace(/\/+$/, ""); // trim trailing slash
 
 
 export default function FormHandler() {
