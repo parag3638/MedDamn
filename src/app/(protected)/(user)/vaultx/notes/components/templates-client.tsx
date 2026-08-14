@@ -72,7 +72,7 @@ export default function TemplatesClient() {
     const searchRef = useRef<HTMLInputElement>(null)
 
     // const API_URL = "http://localhost:9000/templates"
-    const API_URL = "https://site--authbackend--jhkkz9lzfqht.code.run/templates"
+    const API_URL = "https://backend--authbackend--grmgc87s4dxd.code.run/templates"
 
     const DEFAULT_COLUMNS = [
         { id: "backlog", name: "Backlog" },

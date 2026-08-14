@@ -55,7 +55,7 @@ export default function PatientIntakePage() {
   const abortControllerRef = useRef<AbortController | null>(null)
 
   const { toast } = useToast()
-  const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://site--authbackend--jhkkz9lzfqht.code.run"
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://backend--authbackend--grmgc87s4dxd.code.run"
   // const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:9000"
 
   // Auto-scroll to bottom on new messages

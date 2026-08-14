@@ -64,7 +64,7 @@ export function NavUser() {
   async function handleLogout() {
     try {
       const res = await axios.post(
-        "https://site--authbackend--jhkkz9lzfqht.code.run/api/auth/logout",
+        "https://backend--authbackend--grmgc87s4dxd.code.run/api/auth/logout",
         {},
         { withCredentials: true }
       );

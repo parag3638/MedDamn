@@ -27,7 +27,7 @@ type InboxResponse = {
 };
 
 // const API_BASE = (process.env.NEXT_PUBLIC_API_BASE || "http://localhost:9000").replace(/\/$/, "");
-const API_BASE = (process.env.NEXT_PUBLIC_API_BASE || "https://site--authbackend--jhkkz9lzfqht.code.run").replace(/\/$/, "");
+const API_BASE = (process.env.NEXT_PUBLIC_API_BASE || "https://backend--authbackend--grmgc87s4dxd.code.run").replace(/\/$/, "");
 
 export default function DoctorInboxPage() {
     const [data, setData] = useState<InboxItem[]>([]);

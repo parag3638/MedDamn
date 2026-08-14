@@ -52,9 +52,9 @@ axios.interceptors.request.use((config) => {
 
 
 
-const AUTH_BASE = process.env.NEXT_PUBLIC_AUTH_BASE_URL || "https://site--authbackend--jhkkz9lzfqht.code.run/api/auth";
+const AUTH_BASE = process.env.NEXT_PUBLIC_AUTH_BASE_URL || "https://backend--authbackend--grmgc87s4dxd.code.run/api/auth";
 // const AUTH_BASE = "http://localhost:9000/api/auth";
-const API_ROOT = AUTH_BASE.replace(/\/api\/auth$/, ""); // e.g. https://site--authbackend--jhkkz9lzfqht.code.run
+const API_ROOT = AUTH_BASE.replace(/\/api\/auth$/, ""); // e.g. https://backend--authbackend--grmgc87s4dxd.code.run
 
 
 const registerSchema = z.object({
